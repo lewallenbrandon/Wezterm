@@ -6,9 +6,9 @@ local projects = require 'projects'
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- Custom Functions 
--- Function for enabling and disabling tab bar 
-wezterm.on('toggle-tab-bar', function(window, pane) 
+-- Custom Functions
+-- Function for enabling and disabling tab bar
+wezterm.on('toggle-tab-bar', function(window, pane)
 	local overrides = window:get_config_overrides() or {}
 	if overrides.enable_tab_bar then
 		overrides.enable_tab_bar = false
@@ -23,17 +23,21 @@ end)
 config.enable_tab_bar = false
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = false
+config.initial_cols = 200
+config.initial_rows = 60
 --config.color_scheme = 'Catppuccin Mocha (Gogh)'
-config.color_scheme = 'Tokyo Night'
-config.window_background_opacity = .9
+--config.color_scheme = 'Tokyo Night'
+--config.color_scheme = 'Github Dark (Gogh)'
+config.color_scheme = 'Vs Code Dark+ (Gogh)'
+config.window_background_opacity = 1
 config.macos_window_background_blur = 30
 config.window_decorations = 'RESIZE'
-config.font = wezterm.font "JetBrains Mono"
+config.font = wezterm.font "FiraCode Nerd Font"
 config.keys = {
     { key = '/', mods = 'ALT', action = act.Search 'CurrentSelectionOrEmptyString' },
     { key = '[', mods = 'ALT', action = act.ActivateTabRelative(-1) },
     { key = ']', mods = 'ALT', action = act.ActivateTabRelative(1) },
-    { key = '_', mods = 'ALT', action = act.DecreaseFontSize },
+    { key = '-', mods = 'ALT', action = act.DecreaseFontSize },
     { key = '=', mods = 'ALT', action = act.IncreaseFontSize },
     { key = 'c', mods = 'ALT', action = act.CopyTo 'Clipboard' },
 		--key 'd' taken to do directory stuff using fzf
@@ -44,8 +48,8 @@ config.keys = {
     { key = 'm', mods = 'ALT', action = act.TogglePaneZoomState },
     { key = 'n', mods = 'ALT', action = act.SpawnWindow },
     { key = 'phys:Escape', mods = 'ALT', action = act.ActivateCommandPalette },
-    { key = 'p', mods = 'ALT', action = projects.choose_project() },
-    { key = 'P', mods = 'ALT', action = act.ShowLauncherArgs {flags = 'FUZZY|WORKSPACES'}, },
+    { key = 'P', mods = 'ALT', action = projects.choose_project() },
+    { key = 'p', mods = 'ALT', action = act.ShowLauncherArgs {flags = 'FUZZY|WORKSPACES'}, },
     { key = 'r', mods = 'ALT', action = act.RotatePanes "Clockwise" },
     { key = 's', mods = 'ALT', action = act.SplitVertical{ domain =  'CurrentPaneDomain' } },
     { key = 'S', mods = 'SHIFT|ALT', action = act.SplitHorizontal{ domain =  'CurrentPaneDomain' } },
