@@ -6,23 +6,12 @@ local projects = require 'projects'
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- Custom Functions
--- Function for enabling and disabling tab bar
-wezterm.on('toggle-tab-bar', function(window, pane)
-	local overrides = window:get_config_overrides() or {}
-	if overrides.enable_tab_bar then
-		overrides.enable_tab_bar = false
-	else
-		overrides.enable_tab_bar = true
-	end
-	window:set_config_overrides(overrides)
-end)
 
 
 -- For example, changing the color scheme:
-config.enable_tab_bar = false
+config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
-config.tab_bar_at_bottom = false
+config.tab_bar_at_bottom = true
 config.initial_cols = 200
 config.initial_rows = 60
 --config.color_scheme = 'Catppuccin Mocha (Gogh)'
@@ -63,13 +52,25 @@ config.keys = {
     { key = 'PageUp', mods = 'ALT', action = act.ScrollByPage(-1) },
     { key = 'PageDown', mods = 'ALT', action = act.ScrollByPage(1) },
     { key = 'LeftArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Left' },
-    { key = 'LeftArrow', mods = 'SHIFT|ALT', action = act.AdjustPaneSize{ 'Left', 1 } },
+    { key = 'LeftArrow', mods = 'ALT|SHIFT', action = act.AdjustPaneSize{ 'Left', 1 } },
     { key = 'RightArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Right' },
-    { key = 'RightArrow', mods = 'SHIFT|ALT', action = act.AdjustPaneSize{ 'Right', 1 } },
+    { key = 'RightArrow', mods = 'ALT|SHIFT', action = act.AdjustPaneSize{ 'Right', 1 } },
     { key = 'UpArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Up' },
-    { key = 'UpArrow', mods = 'SHIFT|ALT', action = act.AdjustPaneSize{ 'Up', 1 } },
+    { key = 'UpArrow', mods = 'ALT|SHIFT', action = act.AdjustPaneSize{ 'Up', 1 } },
     { key = 'DownArrow', mods = 'ALT', action = act.ActivatePaneDirection 'Down' },
-    { key = 'DownArrow', mods = 'SHIFT|ALT', action = act.AdjustPaneSize{ 'Down', 1 } },
+    { key = 'DownArrow', mods = 'ALT|SHIFT', action = act.AdjustPaneSize{ 'Down', 1 } },
+    { key = 'R', mods = 'SHIFT|SUPER',
+      action = act.PromptInputLine { description = 'Enter new name for tab',
+      action = wezterm.action_callback(function(window, pane, line)
+        -- line will be `nil` if they hit escape without entering anything
+        -- An empty string if they just hit enter
+        -- Or the actual line of text they wrote
+        if line then
+          window:active_tab():set_title(line)
+        end
+      end),
+    },
+  },
   }
 
 -- and finally, return the configuration to wezterm
