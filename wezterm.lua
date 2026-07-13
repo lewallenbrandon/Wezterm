@@ -11,7 +11,7 @@ local function tab_decorations(tab, title)
     local element = {}
     table.insert(element, 'ResetAttributes')
     table.insert(element, { Background = { Color = '#24252f' } })
-    table.insert(element, { Foreground = { Color = '#d62950' } })
+    table.insert(element, { Foreground = { Color = '#ff9879' } })
 
     if tab.tab_index == 0 then -- first tab
         table.insert(element, { Text = ' ' })
@@ -20,11 +20,11 @@ local function tab_decorations(tab, title)
     end
     table.insert(element, 'ResetAttributes')
     table.insert(element, { Foreground = { Color = 'Black' } })
-    table.insert(element, { Background = { Color = '#d62950' } })
+    table.insert(element, { Background = { Color = '#ff9879' } })
     table.insert(element, { Text = title })
     table.insert(element, 'ResetAttributes')
     table.insert(element, { Background = { Color = '#24252f' } })
-    table.insert(element, { Foreground = { Color = '#d62950' } })
+    table.insert(element, { Foreground = { Color = '#ff9879' } })
     table.insert(element, { Text = '' })
     return element
 end
@@ -57,6 +57,56 @@ wezterm.on(
     return title
   end
 )
+config.colors = {
+  tab_bar = {
+    -- The color of the strip that goes along the top of the window
+    -- (does not apply when fancy tab bar is in use)
+    background = '#1c2237',
+
+    -- The active tab is the one that has focus in the window
+    active_tab = {
+      -- The color of the background area for the tab
+      bg_color = '#b79dff',
+      -- The color of the text for the tab
+      fg_color = '#c0c0c0',
+
+    },
+
+    -- Inactive tabs are the tabs that do not have focus
+    inactive_tab = {
+      bg_color = '#1c2237',
+      fg_color = '#b79dff',
+
+    },
+
+    -- You can configure some alternate styling when the mouse pointer
+    -- moves over inactive tabs
+    inactive_tab_hover = {
+      bg_color = '#1c2237',
+      fg_color = '#ff9879',
+
+    },
+
+    -- The new tab button that let you create new tabs
+    new_tab = {
+      bg_color = '#1c2237',
+      fg_color = '#ff9879',
+
+    },
+
+    -- You can configure some alternate styling when the mouse pointer
+    -- moves over the new tab button
+    new_tab_hover = {
+      bg_color = '#ff9879',
+      fg_color = '#0d0e1d',
+
+      -- The same options that were listed under the `active_tab` section above
+      -- can also be used for `new_tab_hover`.
+    },
+  },
+}
+
+
 
 -- For example, changing the color scheme:
 config.enable_tab_bar = true
@@ -67,7 +117,8 @@ config.initial_rows = 60
 --config.color_scheme = 'Catppuccin Mocha (Gogh)'
 --config.color_scheme = 'Tokyo Night'
 --config.color_scheme = 'Github Dark (Gogh)'
-config.color_scheme = 'Vs Code Dark+ (Gogh)'
+--config.color_scheme = 'Vs Code Dark+ (Gogh)'
+config.color_scheme = 'Modus-Vivendi-Tinted'
 config.window_background_opacity = 1
 config.macos_window_background_blur = 30
 config.window_decorations = 'RESIZE'
